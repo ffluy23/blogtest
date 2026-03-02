@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SPA</title>
+
+<style>
+@font-face {
+    font-family: 'NoonnuBasicGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+body {
+    margin: 0;
+    background: #ffffff;
+    font-family: 'NoonnuBasicGothic';
+    color: #92959C;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* 왼쪽 카테고리 */
+.sidebar {
+    width: 220px;
+    padding-top: 120px;
+    padding-left: 40px;
+}
+
+.menu-item {
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+    font-size: 20px;
+}
+
+.menu-item.active {
+    color: #D4D2F2;
+}
+
+.submenu {
+    margin-left: 15px;
+    margin-top: 8px;
+    display: none;
+}
+
+.menu-item.open .submenu {
+    display: block;
+}
+
+.submenu div {
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #92959C;
+    transition: color 0.3s;
+}
+
+.submenu div.active {
+    color: #D4D2F2;
+}
+
+/* Info가 active여도 서브메뉴 글자가 같이 보라색 되지 않게 차단 */
+.menu-item.active .submenu div {
+    color: #92959C;
+}
+
+/* 오른쪽 본문 */
+.content {
+    flex: 1;
+    padding: 80px;
+    position: relative;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.page.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 공통 제목 */
+.title {
+    font-size: 28px;
+    color: #92959C;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title::after {
+    content: "";
+    height: 1px;
+    background: #92959C;
+    margin-left: 15px;
+    width: 100%;
+    max-width: 700px; /* 기본값 */
+}
+
+/* 페이지별 구분선 길이 */
+.notice-title::after {
+    width: 413px;
+    max-width: none;
+}
+
+.info1-title::after {
+    width: 540px;
+    max-width: none;
+}
+
+.info2-title::after {
+    width: 520px;
+    max-width: none;
+}
+
+/* Home 전용 */
+.home-wrapper {
+    display: flex;
+    gap: 80px;
+}
+
+.home-left img {
+    width: 180px;
+    border-radius: 15px;
+}
+
+.nickname {
+    margin-top: 15px;
+    font-size: 22px;
+    color: #807EA6;
+}
+
+.profile-text,
+.notice-text {
+    margin-top: 10px;
+    white-space: pre-line;
+    outline: none;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- 왼쪽 -->
+    <div class="sidebar" id="sidebar">
+        <div class="menu-item active" data-page="home">Home</div>
+
+        <div class="menu-item" id="info-menu">
+            Info
+            <div class="submenu">
+                <div data-page="info1">노션 템플릿 제작 안내</div>
+                <div data-page="info2">개인 홈페이지 제작 안내</div>
+            </div>
+        </div>
+
+        <div class="menu-item" data-page="price1">Price</div>
+    </div>
+
+    <!-- 오른쪽 -->
+    <div class="content">
+
+        <!-- HOME -->
+        <div id="home" class="page active">
+            <div class="home-wrapper">
+                <div class="home-left">
+                    <img src="https://peculiar-amethyst-vnu9rujihn.edgeone.app/IMG_1939.jpeg">
+                    <div class="nickname">SAWA</div>
+                    <div class="profile-text" contenteditable="true">
+Crepe @Sawa_
+                    </div>
+                </div>
+
+                <div class="home-right">
+                    <div class="title notice-title">Notice!</div>
+                    <div class="notice-text" contenteditable="true">
+티스토리 테스트
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO 메인 -->
+        <div id="info" class="page">
+            <div class="title">Info</div>
+            <div contenteditable="true" style="white-space:pre-line;">
+<h2>주의사항</h2>
+<p><b>디자인 전공이 아닙니다</b>
+미감에 약간 하자가 있습니다...
+원하시는 부분(혹은 레퍼런스) 최대한 상세하게 말씀해주시면 그대로 구현합니다.
+특히 이미지(헤더 이미지, 삽입 이미지, 꾸밈 이미지 등) 제공해주셔야 원하시는 만큼 구현됩니다!</p>
+<p><b>대필 X</b>
+글 자료 같은 경우 직접 제공해주시면 대신 입력은 가능하지만, 글을 수정하는 등의 가공은 할 수 없습니다...</p>
+<p><b>역량~기능의 한계에 따라 불가능한 부분이 분명 존재할 수 있습니다.</b>
+(역량 안에서 해결해드립니다...)</p>
+
+
+            </div>
+        </div>
+
+        <!-- INFO 1 -->
+        <div id="info1" class="page">
+            <div class="title info1-title">노션 템플릿 제작 안내</div>
+            <div contenteditable="true" style="white-space:pre-line;">
+자세한 내용은 크레페 확인 부탁드립니다. 
+            </div>
+        </div>
+
+        <!-- INFO 2 -->
+        <div id="info2" class="page">
+            <div class="title info2-title">개인 홈페이지 제작 안내</div>
+            <div contenteditable="true" style="white-space:pre-line;">
+자세한 내용은 크레페 확인 부탁드립니다.
+            </div>
+        </div>
+
+        <!-- PRICE -->
+        <div id="price1" class="page">
+            <div class="title">Price</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const sidebar = document.getElementById('sidebar');
+const infoMenu = document.getElementById('info-menu');
+
+function setActiveMenu(clickedEl) {
+    document.querySelectorAll('.menu-item, .submenu div').forEach(m => {
+        m.classList.remove('active');
+    });
+    if (clickedEl) clickedEl.classList.add('active');
+}
+
+function showPage(pageId, clickedEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById(pageId);
+    if (page) page.classList.add('active');
+    setActiveMenu(clickedEl);
+}
+
+/* ✅ 이벤트 위임으로 클릭 1번만 처리 (깜빡임 방지) */
+sidebar.addEventListener('click', (e) => {
+    const target = e.target;
+
+    // 1) Info 클릭: 토글 + Info 페이지로 이동
+    if (target.id === 'info-menu') {
+        infoMenu.classList.toggle('open');
+        showPage('info', infoMenu); // Info만 보라색
+        return;
+    }
+
+    // 2) 서브메뉴 클릭: 해당 페이지 이동 + 그 항목만 보라색
+    const sub = target.closest('.submenu div');
+    if (sub) {
+        const pageId = sub.dataset.page;
+        if (pageId) showPage(pageId, sub);
+        // Info 토글은 유지(닫히지 않게)
+        infoMenu.classList.add('open');
+        return;
+    }
+
+    // 3) 일반 메뉴(Home/Price) 클릭
+    const menu = target.closest('.menu-item');
+    if (menu && menu.dataset.page) {
+        const pageId = menu.dataset.page;
+        showPage(pageId, menu);
+
+        // 다른 메뉴 누르면 Info 접기(원하면 이 줄 지워도 됨)
+        if (menu.id !== 'info-menu') infoMenu.classList.remove('open');
+        return;
+    }
+});
+</script>
+
+</body>
+</html>
